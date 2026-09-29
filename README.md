@@ -7,12 +7,26 @@ Adds two persistent toggles to KOReader's **Settings → Taps and gestures** men
 
 ## Install
 
-Clone the repository into KOReader's `plugins` directory using the required
-`.koplugin` suffix, then restart KOReader:
+Download `booxgestures.koplugin.zip` from the
+[latest release](https://github.com/schudt/booxgestures/releases/latest) and
+extract it into KOReader's `plugins` directory. The archive already contains
+the required `booxgestures.koplugin` directory. Then restart KOReader.
+
+Alternatively, clone the repository using the required `.koplugin` suffix:
 
 ```sh
 cd /path/to/koreader/plugins
 git clone https://github.com/schudt/booxgestures.git booxgestures.koplugin
+```
+
+## Release
+
+Push a version tag to build and publish an install-ready ZIP and its SHA-256
+checksum:
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
 ```
 
 The plugin is Android-only. It sends BOOX's runtime broadcasts:
