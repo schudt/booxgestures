@@ -134,7 +134,7 @@ end
 function BooxGestures:addToMainMenu(menu_items)
     menu_items.boox_1_top_gestures = {
         text = _("Disable BOOX top gestures in KOReader"),
-        sorting_hint = "screen",
+        sorting_hint = "taps_and_gestures",
         checked_func = function()
             return self:isTopDisabled()
         end,
@@ -150,7 +150,7 @@ function BooxGestures:addToMainMenu(menu_items)
     }
     menu_items.boox_2_bottom_gestures = {
         text = _("Disable BOOX bottom gestures in KOReader"),
-        sorting_hint = "screen",
+        sorting_hint = "taps_and_gestures",
         checked_func = function()
             return self:isBottomDisabled()
         end,
