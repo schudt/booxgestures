@@ -5,6 +5,8 @@ Adds two persistent toggles to KOReader's **Settings → Taps and gestures** men
 - **Disable BOOX top gestures in KOReader**
 - **Disable BOOX bottom gestures in KOReader**
 
+Tested on a BOOX Go 7 device.
+
 ## Install
 
 Download `booxgestures.koplugin.zip` from the
