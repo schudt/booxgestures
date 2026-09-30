@@ -1,4 +1,4 @@
-# BOOX gestures for KOReader
+# booxgestures.koplugin — BOOX gestures for KOReader
 
 Adds two persistent toggles to KOReader's **Settings → Taps and gestures** menu:
 
@@ -8,15 +8,15 @@ Adds two persistent toggles to KOReader's **Settings → Taps and gestures** men
 ## Install
 
 Download `booxgestures.koplugin.zip` from the
-[latest release](https://github.com/schudt/booxgestures/releases/latest) and
+[latest release](https://github.com/schudt/booxgestures.koplugin/releases/latest) and
 extract it into KOReader's `plugins` directory. The archive already contains
 the required `booxgestures.koplugin` directory. Then restart KOReader.
 
-Alternatively, clone the repository using the required `.koplugin` suffix:
+Alternatively, clone the repository directly into KOReader's `plugins` directory:
 
 ```sh
 cd /path/to/koreader/plugins
-git clone https://github.com/schudt/booxgestures.git booxgestures.koplugin
+git clone https://github.com/schudt/booxgestures.koplugin.git
 ```
 
 ## Release
