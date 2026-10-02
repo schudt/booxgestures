@@ -13,8 +13,10 @@ local _ = require("gettext")
 
 local BOTTOM_SETTING = "boox_bottom_gestures_disabled"
 local TOP_SETTING = "boox_top_gestures_disabled"
+local SIDE_SETTING = "boox_side_gestures_disabled"
 local BOTTOM_ACTION = "com.onyx.action.BOTTOM_GESTURE_ENABLE"
 local TOP_ACTION = "com.onyx.action.TOP_GESTURE_ENABLE"
+local SIDE_ACTION = "com.onyx.action.SIDE_GESTURE_ENABLE"
 
 local BooxGestures = WidgetContainer:extend{
     name = "booxgestures",
@@ -27,6 +29,10 @@ end
 
 function BooxGestures:isTopDisabled()
     return G_reader_settings:isTrue(TOP_SETTING)
+end
+
+function BooxGestures:isSideDisabled()
+    return G_reader_settings:isTrue(SIDE_SETTING)
 end
 
 function BooxGestures:apply(action_name, disabled)
@@ -105,6 +111,7 @@ function BooxGestures:init()
     self.ui.menu:registerToMainMenu(self)
     self:apply(BOTTOM_ACTION, self:isBottomDisabled())
     self:apply(TOP_ACTION, self:isTopDisabled())
+    self:apply(SIDE_ACTION, self:isSideDisabled())
 end
 
 function BooxGestures:onRequestSuspend()
@@ -113,6 +120,9 @@ function BooxGestures:onRequestSuspend()
     end
     if self:isTopDisabled() then
         self:apply(TOP_ACTION, false)
+    end
+    if self:isSideDisabled() then
+        self:apply(SIDE_ACTION, false)
     end
 end
 
@@ -123,46 +133,69 @@ function BooxGestures:onResume()
     if self:isTopDisabled() then
         self:apply(TOP_ACTION, true)
     end
+    if self:isSideDisabled() then
+        self:apply(SIDE_ACTION, true)
+    end
 end
 
 function BooxGestures:stopPlugin()
     local bottom_ok = self:apply(BOTTOM_ACTION, false)
     local top_ok = self:apply(TOP_ACTION, false)
-    return bottom_ok and top_ok
+    local side_ok = self:apply(SIDE_ACTION, false)
+    return bottom_ok and top_ok and side_ok
 end
 
 function BooxGestures:addToMainMenu(menu_items)
-    menu_items.boox_1_top_gestures = {
-        text = _("Disable BOOX top gestures in KOReader"),
+    menu_items.boox_system_gestures = {
+        text = _("BOOX system gestures"),
         sorting_hint = "taps_and_gestures",
-        checked_func = function()
-            return self:isTopDisabled()
-        end,
-        callback = function()
-            self:setGestureDisabled(
-                TOP_SETTING,
-                TOP_ACTION,
-                not self:isTopDisabled(),
-                _("BOOX top"),
-                true
-            )
-        end,
-    }
-    menu_items.boox_2_bottom_gestures = {
-        text = _("Disable BOOX bottom gestures in KOReader"),
-        sorting_hint = "taps_and_gestures",
-        checked_func = function()
-            return self:isBottomDisabled()
-        end,
-        callback = function()
-            self:setGestureDisabled(
-                BOTTOM_SETTING,
-                BOTTOM_ACTION,
-                not self:isBottomDisabled(),
-                _("BOOX bottom"),
-                true
-            )
-        end,
+        sub_item_table = {
+            {
+                text = _("Disable BOOX top gestures in KOReader"),
+                checked_func = function()
+                    return self:isTopDisabled()
+                end,
+                callback = function()
+                    self:setGestureDisabled(
+                        TOP_SETTING,
+                        TOP_ACTION,
+                        not self:isTopDisabled(),
+                        _("BOOX top"),
+                        true
+                    )
+                end,
+            },
+            {
+                text = _("Disable BOOX bottom gestures in KOReader"),
+                checked_func = function()
+                    return self:isBottomDisabled()
+                end,
+                callback = function()
+                    self:setGestureDisabled(
+                        BOTTOM_SETTING,
+                        BOTTOM_ACTION,
+                        not self:isBottomDisabled(),
+                        _("BOOX bottom"),
+                        true
+                    )
+                end,
+            },
+            {
+                text = _("Disable BOOX side gestures in KOReader"),
+                checked_func = function()
+                    return self:isSideDisabled()
+                end,
+                callback = function()
+                    self:setGestureDisabled(
+                        SIDE_SETTING,
+                        SIDE_ACTION,
+                        not self:isSideDisabled(),
+                        _("BOOX side"),
+                        true
+                    )
+                end,
+            },
+        },
     }
 end
 
